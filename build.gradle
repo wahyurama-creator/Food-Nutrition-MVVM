@@ -12,6 +12,7 @@ buildscript {
         gson_version = '2.9.0'
         shimmer_version = '0.5.0'
         jsoup_version = '1.13.1'
+        lottie_version = '5.2.0'
     }
 }
 

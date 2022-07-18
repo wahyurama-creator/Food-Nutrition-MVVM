@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/extra_small_margin"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/lightMediumGray"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/ivRecipes"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/image_recipes"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tvTitleRecipes"
+                style="@style/TextTitleBold18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:ellipsize="end"
+                android:maxLines="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivRecipes"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="My Title" />
+
+            <TextView
+                android:id="@+id/tvDescRecipes"
+                style="@style/TextDescription14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:ellipsize="end"
+                android:maxLines="3"
+                app:layout_constraintBottom_toTopOf="@id/icHeart"
+                app:layout_constraintEnd_toEndOf="@id/tvTitleRecipes"
+                app:layout_constraintStart_toStartOf="@id/tvTitleRecipes"
+                app:layout_constraintTop_toBottomOf="@id/tvTitleRecipes"
+                tools:text="@tools:sample/lorem/random" />
+
+            <ImageView
+                android:id="@+id/icHeart"
+                android:layout_width="@dimen/small_icon"
+                android:layout_height="@dimen/small_icon"
+                android:contentDescription="@string/icon_heart"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintBottom_toTopOf="@+id/tvHeart"
+                app:layout_constraintEnd_toEndOf="@+id/tvHeart"
+                app:layout_constraintStart_toStartOf="@+id/tvHeart"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescRecipes"
+                app:layout_constraintVertical_bias="1.0"
+                app:tint="@color/red" />
+
+            <TextView
+                android:id="@+id/tvHeart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:textColor="@color/red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDescRecipes"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescRecipes"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="100" />
+
+            <ImageView
+                android:id="@+id/icClock"
+                android:layout_width="@dimen/small_icon"
+                android:layout_height="@dimen/small_icon"
+                android:contentDescription="@string/icon_clock"
+                android:src="@drawable/ic_time"
+                app:layout_constraintEnd_toEndOf="@id/tvClock"
+                app:layout_constraintStart_toStartOf="@id/tvClock"
+                app:layout_constraintTop_toTopOf="@id/icHeart"
+                app:tint="@color/yellow" />
+
+            <TextView
+                android:id="@+id/tvClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:textColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@id/tvHeart"
+                app:layout_constraintStart_toEndOf="@id/tvHeart"
+                app:layout_constraintTop_toTopOf="@id/tvHeart"
+                tools:text="100" />
+
+            <ImageView
+                android:id="@+id/icLeaf"
+                android:layout_width="@dimen/small_icon"
+                android:layout_height="@dimen/small_icon"
+                android:contentDescription="@string/icon_leaf"
+                android:src="@drawable/ic_leaf"
+                app:layout_constraintEnd_toEndOf="@id/tvLeaf"
+                app:layout_constraintStart_toStartOf="@id/tvLeaf"
+                app:layout_constraintTop_toTopOf="@id/icClock"
+                app:tint="@color/green" />
+
+            <TextView
+                android:id="@+id/tvLeaf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:textColor="@color/green"
+                app:layout_constraintBottom_toBottomOf="@id/tvClock"
+                app:layout_constraintStart_toEndOf="@id/tvClock"
+                app:layout_constraintTop_toTopOf="@id/tvClock"
+                tools:text="100" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
