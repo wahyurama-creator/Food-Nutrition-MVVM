@@ -8,6 +8,7 @@
     tools:context=".RecipesFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/small_margin"
@@ -16,6 +17,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/placeholder_item_recipes" />
+
+            <include layout="@layout/placeholder_item_recipes" />
+
+            <include layout="@layout/placeholder_item_recipes" />
+
+            <include layout="@layout/placeholder_item_recipes" />
+        </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
