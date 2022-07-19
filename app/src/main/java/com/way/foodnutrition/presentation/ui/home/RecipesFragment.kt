@@ -1,4 +1,4 @@
-package com.way.foodnutrition
+package com.way.foodnutrition.presentation.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
