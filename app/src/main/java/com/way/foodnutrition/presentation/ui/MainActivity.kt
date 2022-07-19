@@ -1,10 +1,11 @@
-package com.way.foodnutrition
+package com.way.foodnutrition.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
