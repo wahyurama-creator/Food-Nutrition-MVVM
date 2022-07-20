@@ -24,7 +24,6 @@ object NetworkModule {
             .connectTimeout(15,TimeUnit.SECONDS)
             .build()
 
-
         @Singleton
     @Provides
     fun provideGsonConverterFactoryInstance(): GsonConverterFactory =
