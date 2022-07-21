@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class FoodRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    val remoteDataSource: RemoteDataSource
 ) {  }
