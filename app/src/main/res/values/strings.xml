@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Food Nutrition</string>
     <string name="no_internet">No Internet Connection</string>
+    <string name="timeout">Error Timeout</string>
+    <string name="api_key_limited">Error API Key Limited</string>
+    <string name="recipes_not_found">Recipes Not Found</string>
 
     <!-- menu item & fragments -->
     <string name="recipes_fragment">Recipes</string>
