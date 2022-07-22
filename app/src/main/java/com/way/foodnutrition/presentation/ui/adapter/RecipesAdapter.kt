@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.way.foodnutrition.R
+import com.way.foodnutrition.data.model.FoodRecipe
 import com.way.foodnutrition.data.model.Result
 import com.way.foodnutrition.databinding.ItemRecipesBinding
 import javax.inject.Inject
@@ -53,10 +54,10 @@ class RecipesAdapter @Inject constructor() :
         holder.bind(oldRecipes[position])
     }
 
-    fun setData(newRecipes: List<Result>) {
-        val diffUtil = RecipesDiffUtil(oldRecipes, newRecipes)
+    fun setData(newRecipes: FoodRecipe) {
+        val diffUtil = RecipesDiffUtil(oldRecipes, newRecipes.results)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
-        oldRecipes = newRecipes
+        oldRecipes = newRecipes.results
         diffResults.dispatchUpdatesTo(this)
     }
 
