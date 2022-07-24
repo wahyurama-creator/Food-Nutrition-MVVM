@@ -17,7 +17,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipesViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val foodRepository: FoodRepository,
     val app: Application
 ) : AndroidViewModel(app) {

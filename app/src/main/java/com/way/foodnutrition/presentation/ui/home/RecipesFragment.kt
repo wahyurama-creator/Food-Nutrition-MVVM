@@ -11,14 +11,14 @@ import com.way.foodnutrition.BuildConfig
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
-import com.way.foodnutrition.presentation.viewmodel.RecipesViewModel
+import com.way.foodnutrition.presentation.viewmodel.MainViewModel
 import com.way.foodnutrition.utils.NetworkResult
 
 class RecipesFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipesBinding
     private lateinit var recipesAdapter: RecipesAdapter
-    private lateinit var recipesViewModel: RecipesViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class RecipesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recipesAdapter = (activity as MainActivity).recipesAdapter
-        recipesViewModel = (activity as MainActivity).recipesViewModel
+        mainViewModel = (activity as MainActivity).mainViewModel
 
         setupRecyclerView()
         getRecipesApi()
@@ -71,8 +71,8 @@ class RecipesFragment : Fragment() {
     }
 
     private fun getRecipesApi() {
-        recipesViewModel.getRecipes(setQueriesPathApi())
-        recipesViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
+        mainViewModel.getRecipes(setQueriesPathApi())
+        mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     showShimmer(false)

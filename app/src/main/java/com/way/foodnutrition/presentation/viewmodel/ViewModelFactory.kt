@@ -14,8 +14,8 @@ class ViewModelFactory @Inject constructor(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(RecipesViewModel::class.java) -> {
-                RecipesViewModel(repository, app) as T
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(repository, app) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel Class")
