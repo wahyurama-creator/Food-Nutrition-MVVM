@@ -17,6 +17,9 @@ class ViewModelFactory @Inject constructor(
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository, app) as T
             }
+            modelClass.isAssignableFrom(RecipesViewModel::class.java) -> {
+                RecipesViewModel(app) as T
+            }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel Class")
             }
