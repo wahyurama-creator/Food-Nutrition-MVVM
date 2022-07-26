@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.*
+import android.util.Log
 import androidx.lifecycle.*
 import com.way.foodnutrition.R
 import com.way.foodnutrition.data.FoodRepository
@@ -31,6 +32,11 @@ class MainViewModel @Inject constructor(
             foodRepository.localDataSource.insertRecipes(recipesEntity)
         }
 
+    private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
+        val recipesEntity = RecipesEntity(foodRecipe)
+        insertRecipes(recipesEntity)
+    }
+
     // Remote
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
@@ -43,9 +49,10 @@ class MainViewModel @Inject constructor(
         if (hasInternetConnection()) {
             try {
                 val response = foodRepository.remoteDataSource.getRecipes(queries)
-                recipesResponse.postValue(handleRecipesResponse(response))
+                recipesResponse.value = handleRecipesResponse(response)
 
                 val foodRecipe = recipesResponse.value?.data
+                Log.d(MainViewModel::class.simpleName, "Offline Cache Called, $foodRecipe")
                 if (foodRecipe != null) {
                     offlineCacheRecipes(foodRecipe)
                 }
@@ -55,11 +62,6 @@ class MainViewModel @Inject constructor(
         } else {
             recipesResponse.postValue(NetworkResult.Error(app.getString(R.string.no_internet)))
         }
-    }
-
-    private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
-        val recipesEntity = RecipesEntity(foodRecipe)
-        insertRecipes(recipesEntity)
     }
 
     private fun handleRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe> {
