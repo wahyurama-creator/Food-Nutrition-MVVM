@@ -1,4 +1,4 @@
-package com.way.foodnutrition.data.model
+package com.way.foodnutrition.data.remote.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

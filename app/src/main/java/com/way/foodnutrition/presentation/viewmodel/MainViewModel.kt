@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.way.foodnutrition.R
 import com.way.foodnutrition.data.FoodRepository
-import com.way.foodnutrition.data.model.FoodRecipe
+import com.way.foodnutrition.data.remote.model.FoodRecipe
 import com.way.foodnutrition.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

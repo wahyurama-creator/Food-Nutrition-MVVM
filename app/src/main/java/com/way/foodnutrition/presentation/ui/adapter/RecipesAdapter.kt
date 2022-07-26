@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.way.foodnutrition.R
-import com.way.foodnutrition.data.model.FoodRecipe
-import com.way.foodnutrition.data.model.Result
+import com.way.foodnutrition.data.remote.model.FoodRecipe
+import com.way.foodnutrition.data.remote.model.Result
 import com.way.foodnutrition.databinding.ItemRecipesBinding
 import javax.inject.Inject
 import javax.inject.Singleton

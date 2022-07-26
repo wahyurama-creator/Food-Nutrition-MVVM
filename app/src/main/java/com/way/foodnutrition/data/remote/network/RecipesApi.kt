@@ -1,6 +1,6 @@
-package com.way.foodnutrition.data.network
+package com.way.foodnutrition.data.remote.network
 
-import com.way.foodnutrition.data.model.FoodRecipe
+import com.way.foodnutrition.data.remote.model.FoodRecipe
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

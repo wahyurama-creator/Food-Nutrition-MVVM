@@ -1,7 +1,7 @@
-package com.way.foodnutrition.data
+package com.way.foodnutrition.data.remote
 
-import com.way.foodnutrition.data.model.FoodRecipe
-import com.way.foodnutrition.data.network.RecipesApi
+import com.way.foodnutrition.data.remote.model.FoodRecipe
+import com.way.foodnutrition.data.remote.network.RecipesApi
 import retrofit2.Response
 import javax.inject.Inject
 

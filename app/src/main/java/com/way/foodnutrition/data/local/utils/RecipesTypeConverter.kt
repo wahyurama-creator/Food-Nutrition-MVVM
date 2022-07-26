@@ -3,7 +3,7 @@ package com.way.foodnutrition.data.local.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.way.foodnutrition.data.model.FoodRecipe
+import com.way.foodnutrition.data.remote.model.FoodRecipe
 import javax.inject.Inject
 
 class RecipesTypeConverter {

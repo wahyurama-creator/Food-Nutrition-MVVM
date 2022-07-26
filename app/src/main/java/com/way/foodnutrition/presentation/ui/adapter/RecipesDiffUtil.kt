@@ -1,7 +1,7 @@
 package com.way.foodnutrition.presentation.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.way.foodnutrition.data.model.Result
+import com.way.foodnutrition.data.remote.model.Result
 
 class RecipesDiffUtil(
     private val oldList: List<Result>,

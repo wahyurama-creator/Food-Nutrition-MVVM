@@ -1,7 +1,7 @@
 package com.way.foodnutrition.di
 
 import com.way.foodnutrition.BuildConfig
-import com.way.foodnutrition.data.network.RecipesApi
+import com.way.foodnutrition.data.remote.network.RecipesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
