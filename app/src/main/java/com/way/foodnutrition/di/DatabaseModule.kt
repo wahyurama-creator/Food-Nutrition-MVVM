@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.way.foodnutrition.data.local.model.RecipesEntity.Companion.DATABASE_RECIPES
 import com.way.foodnutrition.data.local.room.RecipesDatabase
-import com.way.foodnutrition.data.local.utils.RecipesTypeConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +23,7 @@ object DatabaseModule {
         context,
         RecipesDatabase::class.java,
         DATABASE_RECIPES
-    ).addTypeConverter(RecipesTypeConverter::class.java)
-        .fallbackToDestructiveMigration()
+    )
         .build()
 
     @Provides
