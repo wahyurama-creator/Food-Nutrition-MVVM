@@ -12,5 +12,6 @@ class RecipesEntity(var foodRecipe: FoodRecipe) {
 
     companion object {
         const val TABLE_RECIPES = "recipes_table"
+        const val DATABASE_RECIPES = "recipes_db"
     }
 }
