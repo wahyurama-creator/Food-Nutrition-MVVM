@@ -8,7 +8,7 @@ import com.way.foodnutrition.data.remote.model.FoodRecipe
 @Entity(tableName = TABLE_RECIPES)
 class RecipesEntity(var foodRecipe: FoodRecipe) {
     @PrimaryKey(autoGenerate = false)
-    val id: Int = 0
+    var id: Int = 0
 
     companion object {
         const val TABLE_RECIPES = "recipes_table"
