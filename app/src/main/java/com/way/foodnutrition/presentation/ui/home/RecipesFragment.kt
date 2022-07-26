@@ -1,12 +1,14 @@
 package com.way.foodnutrition.presentation.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
@@ -15,6 +17,9 @@ import com.way.foodnutrition.presentation.viewmodel.MainViewModel
 import com.way.foodnutrition.presentation.viewmodel.RecipesViewModel
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
 import com.way.foodnutrition.utils.NetworkResult
+import com.way.foodnutrition.utils.TrackLog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RecipesFragment : Fragment() {
@@ -44,7 +49,7 @@ class RecipesFragment : Fragment() {
         recipesViewModel = ViewModelProvider(this, viewModelFactory)[RecipesViewModel::class.java]
 
         setupRecyclerView()
-        getRecipesApi()
+        readFromDatabase()
     }
 
     private fun setupRecyclerView() {
@@ -68,8 +73,34 @@ class RecipesFragment : Fragment() {
         }
     }
 
+    private fun readFromDatabase() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+                if (database.isNotEmpty()) {
+                    Log.d(RecipesFragment::class.simpleName, TrackLog.GET_DATA_FROM_DATABASE)
+                    recipesAdapter.setData(database[0].foodRecipe)
+                    showShimmer(false)
+                } else {
+                    getRecipesApi()
+                }
+            }
+        }
+    }
+
+    private fun loadOfflineData() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+                if (database.isNotEmpty()) {
+                    Log.d(RecipesFragment::class.simpleName, TrackLog.GET_DATA_FROM_DATABASE)
+                    recipesAdapter.setData(database[0].foodRecipe)
+                    showShimmer(false)
+                }
+            }
+        }
+    }
 
     private fun getRecipesApi() {
+        Log.d(RecipesFragment::class.simpleName, TrackLog.REQUEST_GET_API)
         mainViewModel.getRecipes(recipesViewModel.setQueriesPathApi())
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -86,6 +117,7 @@ class RecipesFragment : Fragment() {
                         response.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
+                    loadOfflineData()
                 }
                 is NetworkResult.Loading -> {
                     showShimmer(true)
