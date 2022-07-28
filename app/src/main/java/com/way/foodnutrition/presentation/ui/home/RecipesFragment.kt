@@ -48,6 +48,8 @@ class RecipesFragment : Fragment() {
         mainViewModel = (activity as MainActivity).mainViewModel
         viewModelFactory = (activity as MainActivity).viewModelFactory
         recipesViewModel = ViewModelProvider(this, viewModelFactory)[RecipesViewModel::class.java]
+        binding.mainViewModel = mainViewModel
+        binding.lifecycleOwner = this
 
         setupRecyclerView()
         readFromDatabase()
@@ -73,6 +75,22 @@ class RecipesFragment : Fragment() {
             }
         }
     }
+
+//    private fun checkErrorConnection() {
+//        val apiResponse = mainViewModel.recipesResponse.value
+//        Log.e("No Internet API", apiResponse.toString())
+//        val database = mainViewModel.readRecipes.value
+//        Log.e("No Internet DB", database.toString())
+//        when {
+//            apiResponse is NetworkResult.Error && database.isNullOrEmpty() -> {
+//                binding.errorView.errorView.visibility = View.VISIBLE
+//            }
+//            apiResponse is NetworkResult.Loading -> binding.errorView.lottieAnimationView.visibility =
+//                View.INVISIBLE
+//            apiResponse is NetworkResult.Success -> binding.errorView.lottieAnimationView.visibility =
+//                View.INVISIBLE
+//        }
+//    }
 
     private fun readFromDatabase() {
         lifecycleScope.launch(Dispatchers.Main) {
