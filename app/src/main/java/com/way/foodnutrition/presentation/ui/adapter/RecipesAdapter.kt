@@ -22,12 +22,17 @@ class RecipesAdapter @Inject constructor() :
     inner class RecipesViewHolder(private val binding: ItemRecipesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(results: Result) {
-            binding.ivRecipes.load(results.image)
+            binding.ivRecipes.load(results.image) {
+                crossfade(true)
+                placeholder(R.drawable.ic_error_placeholder)
+                error(R.drawable.ic_error_placeholder)
+            }
             binding.tvTitleRecipes.text = results.title
             binding.tvDescRecipes.text = results.summary
             binding.tvHeart.text = results.aggregateLikes.toString()
             binding.tvClock.text = results.readyInMinutes.toString()
             binding.apply {
+                tvLeaf.text = results.vegan.toString()
                 if (results.vegan) {
                     tvLeaf.setTextColor(ContextCompat.getColor(root.context, R.color.green))
                     icLeaf.setColorFilter(ContextCompat.getColor(root.context, R.color.green))
