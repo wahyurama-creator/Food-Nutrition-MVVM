@@ -52,8 +52,11 @@ class MainViewModel @Inject constructor(
                 recipesResponse.value = handleRecipesResponse(response)
 
                 val foodRecipe = recipesResponse.value?.data
-                Log.d(MainViewModel::class.simpleName, "Offline Cache Called, $foodRecipe")
                 if (foodRecipe != null) {
+                    Log.d(
+                        MainViewModel::class.simpleName,
+                        "Offline Cache Called, ${foodRecipe.results[0].title}"
+                    )
                     offlineCacheRecipes(foodRecipe)
                 }
             } catch (e: Exception) {
