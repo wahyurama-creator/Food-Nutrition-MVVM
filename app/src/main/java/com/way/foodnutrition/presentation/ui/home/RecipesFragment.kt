@@ -18,6 +18,7 @@ import com.way.foodnutrition.presentation.viewmodel.RecipesViewModel
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
 import com.way.foodnutrition.utils.NetworkResult
 import com.way.foodnutrition.utils.TrackLog
+import com.way.foodnutrition.utils.observeOnce
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -75,7 +76,7 @@ class RecipesFragment : Fragment() {
 
     private fun readFromDatabase() {
         lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
                     Log.d(RecipesFragment::class.simpleName, TrackLog.GET_DATA_FROM_DATABASE)
                     recipesAdapter.setData(database[0].foodRecipe)
