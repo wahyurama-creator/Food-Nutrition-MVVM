@@ -14,8 +14,8 @@ class RecipesViewModel @Inject constructor(app: Application) : AndroidViewModel(
         val queries: HashMap<String, String> = HashMap()
         queries[RecipesFragment.NUMBER] = "50"
         queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
-        queries[RecipesFragment.TYPE] = "snack"
-        queries[RecipesFragment.DIET] = "vegan"
+        queries[RecipesFragment.TYPE] = "main course"
+        queries[RecipesFragment.DIET] = "gluten free"
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries

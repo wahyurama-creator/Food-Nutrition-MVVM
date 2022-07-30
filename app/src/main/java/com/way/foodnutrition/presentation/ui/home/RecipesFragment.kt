@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
@@ -53,6 +55,10 @@ class RecipesFragment : Fragment() {
 
         setupRecyclerView()
         readFromDatabase()
+
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -75,22 +81,6 @@ class RecipesFragment : Fragment() {
             }
         }
     }
-
-//    private fun checkErrorConnection() {
-//        val apiResponse = mainViewModel.recipesResponse.value
-//        Log.e("No Internet API", apiResponse.toString())
-//        val database = mainViewModel.readRecipes.value
-//        Log.e("No Internet DB", database.toString())
-//        when {
-//            apiResponse is NetworkResult.Error && database.isNullOrEmpty() -> {
-//                binding.errorView.errorView.visibility = View.VISIBLE
-//            }
-//            apiResponse is NetworkResult.Loading -> binding.errorView.lottieAnimationView.visibility =
-//                View.INVISIBLE
-//            apiResponse is NetworkResult.Success -> binding.errorView.lottieAnimationView.visibility =
-//                View.INVISIBLE
-//        }
-//    }
 
     private fun readFromDatabase() {
         lifecycleScope.launch(Dispatchers.Main) {
