@@ -3,11 +3,13 @@ package com.way.foodnutrition.presentation.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.way.foodnutrition.data.DataStoreRepository
 import com.way.foodnutrition.data.FoodRepository
 import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(
     private val repository: FoodRepository,
+    private val dataStoreRepository: DataStoreRepository,
     val app: Application
 ) : ViewModelProvider.Factory {
 
@@ -18,7 +20,7 @@ class ViewModelFactory @Inject constructor(
                 MainViewModel(repository, app) as T
             }
             modelClass.isAssignableFrom(RecipesViewModel::class.java) -> {
-                RecipesViewModel(app) as T
+                RecipesViewModel(app, dataStoreRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel Class")
