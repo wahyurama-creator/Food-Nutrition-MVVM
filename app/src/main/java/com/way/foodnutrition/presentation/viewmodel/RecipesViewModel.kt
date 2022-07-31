@@ -2,22 +2,54 @@ package com.way.foodnutrition.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.way.foodnutrition.BuildConfig
+import com.way.foodnutrition.data.DataStoreRepository
 import com.way.foodnutrition.presentation.ui.home.RecipesFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipesViewModel @Inject constructor(app: Application) : AndroidViewModel(app) {
+class RecipesViewModel @Inject constructor(
+    app: Application,
+    private val dataStoreRepository: DataStoreRepository
+) : AndroidViewModel(app) {
+
+    private var mealType = DEFAULT_TYPE
+    private var dietType = DEFAULT_DIET
+
+    val readMealAndDietType = dataStoreRepository.readMealAndDietType
+
+    fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
+        }
+    }
 
     fun setQueriesPathApi(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
-        queries[RecipesFragment.NUMBER] = "50"
+
+        viewModelScope.launch {
+            readMealAndDietType.collect {
+                mealType = it.selectedMealType
+                dietType = it.selectedDietType
+            }
+        }
+
+        queries[RecipesFragment.NUMBER] = DEFAULT_NUMBER
         queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
-        queries[RecipesFragment.TYPE] = "main course"
-        queries[RecipesFragment.DIET] = "gluten free"
+        queries[RecipesFragment.TYPE] = DEFAULT_TYPE
+        queries[RecipesFragment.DIET] = DEFAULT_DIET
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries
+    }
+
+    companion object {
+        const val DEFAULT_NUMBER = "50"
+        const val DEFAULT_TYPE = "main course"
+        const val DEFAULT_DIET = "gluten free"
     }
 }
