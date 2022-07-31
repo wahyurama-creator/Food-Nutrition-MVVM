@@ -1,6 +1,7 @@
 package com.way.foodnutrition.di
 
 import android.app.Application
+import com.way.foodnutrition.data.DataStoreRepository
 import com.way.foodnutrition.data.FoodRepository
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
 import dagger.Module
@@ -19,8 +20,9 @@ object FactoryModule {
     @ApplicationContext
     fun provideViewModelFactory(
         repository: FoodRepository,
+        dataStoreRepository: DataStoreRepository,
         app: Application
     ): ViewModelFactory = ViewModelFactory(
-        repository, app
+        repository, dataStoreRepository, app
     )
 }
