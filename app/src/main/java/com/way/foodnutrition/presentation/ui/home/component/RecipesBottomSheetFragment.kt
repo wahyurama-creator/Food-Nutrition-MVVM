@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.FragmentRecipesBottomSheetBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
 import com.way.foodnutrition.presentation.viewmodel.RecipesViewModel
@@ -88,7 +87,10 @@ class RecipesBottomSheetFragment : BottomSheetDialogFragment() {
                 dietTypeChip,
                 dietTypeChipId
             )
-            findNavController().navigate(R.id.action_recipesBottomSheetFragment_to_recipesFragment)
+            val action = RecipesBottomSheetFragmentDirections.actionRecipesBottomSheetFragmentToRecipesFragment(
+                true
+            )
+            findNavController().navigate(action)
         }
     }
 

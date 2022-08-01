@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
@@ -27,6 +30,7 @@ import javax.inject.Inject
 
 class RecipesFragment : Fragment() {
 
+    private val args: RecipesFragmentArgs by navArgs()
     private lateinit var binding: FragmentRecipesBinding
     private lateinit var recipesAdapter: RecipesAdapter
     private lateinit var mainViewModel: MainViewModel
@@ -51,7 +55,7 @@ class RecipesFragment : Fragment() {
         viewModelFactory = (activity as MainActivity).viewModelFactory
         recipesViewModel = ViewModelProvider(this, viewModelFactory)[RecipesViewModel::class.java]
         binding.mainViewModel = mainViewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         setupRecyclerView()
         readFromDatabase()
@@ -63,7 +67,7 @@ class RecipesFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvRecipes.apply {
-            visibility = View.VISIBLE
+            visibility = VISIBLE
             adapter = recipesAdapter
             layoutManager = LinearLayoutManager(context)
             showShimmer(false)
@@ -72,11 +76,11 @@ class RecipesFragment : Fragment() {
 
     private fun showShimmer(isShow: Boolean) {
         with(binding.shimmerLayout) {
-            visibility = View.VISIBLE
+            visibility = VISIBLE
             if (isShow) {
                 this.showShimmer(true)
             } else {
-                visibility = View.INVISIBLE
+                visibility = INVISIBLE
                 this.showShimmer(false)
             }
         }
@@ -85,10 +89,11 @@ class RecipesFragment : Fragment() {
     private fun readFromDatabase() {
         lifecycleScope.launch(Dispatchers.Main) {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty()) {
+                if (database.isNotEmpty() && !args.backFromBottomShet) {
                     Log.d(RecipesFragment::class.simpleName, TrackLog.GET_DATA_FROM_DATABASE)
                     recipesAdapter.setData(database[0].foodRecipe)
                     showShimmer(false)
+                    isShownRecyclerView(true)
                 } else {
                     getRecipesApi()
                 }
@@ -109,18 +114,21 @@ class RecipesFragment : Fragment() {
     }
 
     private fun getRecipesApi() {
+        isShownRecyclerView(false)
         Log.d(RecipesFragment::class.simpleName, TrackLog.REQUEST_GET_API)
         mainViewModel.getRecipes(recipesViewModel.setQueriesPathApi())
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     showShimmer(false)
+                    isShownRecyclerView(true)
                     response.data?.let {
                         recipesAdapter.setData(it)
                     }
                 }
                 is NetworkResult.Error -> {
                     showShimmer(false)
+                    isShownRecyclerView(true)
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -130,8 +138,16 @@ class RecipesFragment : Fragment() {
                 }
                 is NetworkResult.Loading -> {
                     showShimmer(true)
+                    isShownRecyclerView(false)
                 }
             }
+        }
+    }
+
+    private fun isShownRecyclerView(isShow: Boolean) {
+        with(binding) {
+            if (isShow) rvRecipes.visibility = VISIBLE
+            else rvRecipes.visibility = INVISIBLE
         }
     }
 
