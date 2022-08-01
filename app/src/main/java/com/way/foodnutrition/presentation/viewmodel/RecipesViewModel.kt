@@ -40,8 +40,8 @@ class RecipesViewModel @Inject constructor(
 
         queries[RecipesFragment.NUMBER] = DEFAULT_NUMBER
         queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
-        queries[RecipesFragment.TYPE] = DEFAULT_TYPE
-        queries[RecipesFragment.DIET] = DEFAULT_DIET
+        queries[RecipesFragment.TYPE] = mealType
+        queries[RecipesFragment.DIET] = dietType
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries
