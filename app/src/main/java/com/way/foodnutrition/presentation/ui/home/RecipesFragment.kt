@@ -21,6 +21,7 @@ import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
 import com.way.foodnutrition.presentation.viewmodel.MainViewModel
 import com.way.foodnutrition.presentation.viewmodel.RecipesViewModel
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
+import com.way.foodnutrition.utils.NetworkListener
 import com.way.foodnutrition.utils.NetworkResult
 import com.way.foodnutrition.utils.TrackLog
 import com.way.foodnutrition.utils.observeOnce
@@ -35,6 +36,7 @@ class RecipesFragment : Fragment() {
     private lateinit var recipesAdapter: RecipesAdapter
     private lateinit var mainViewModel: MainViewModel
     private lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var networkListener: NetworkListener
 
     @Inject
     lateinit var recipesViewModel: RecipesViewModel
@@ -54,8 +56,17 @@ class RecipesFragment : Fragment() {
         mainViewModel = (activity as MainActivity).mainViewModel
         viewModelFactory = (activity as MainActivity).viewModelFactory
         recipesViewModel = ViewModelProvider(this, viewModelFactory)[RecipesViewModel::class.java]
+
         binding.mainViewModel = mainViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        lifecycleScope.launch {
+            networkListener = (activity as MainActivity).networkListener
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status ->
+                    Log.e(RecipesFragment::class.simpleName, status.toString())
+                }
+        }
 
         setupRecyclerView()
         readFromDatabase()

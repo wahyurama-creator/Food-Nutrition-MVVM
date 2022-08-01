@@ -13,7 +13,6 @@ import com.way.foodnutrition.databinding.ItemRecipesBinding
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class RecipesAdapter @Inject constructor() :
     RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
 

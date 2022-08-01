@@ -11,6 +11,7 @@ import com.way.foodnutrition.databinding.ActivityMainBinding
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
 import com.way.foodnutrition.presentation.viewmodel.MainViewModel
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
+import com.way.foodnutrition.utils.NetworkListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var recipesAdapter: RecipesAdapter
+    @Inject
+    lateinit var networkListener: NetworkListener
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
