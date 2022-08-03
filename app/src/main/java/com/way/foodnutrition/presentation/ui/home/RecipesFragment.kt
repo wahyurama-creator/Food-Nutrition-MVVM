@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
@@ -65,6 +66,8 @@ class RecipesFragment : Fragment() {
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
                     Log.e(RecipesFragment::class.simpleName, status.toString())
+                    recipesViewModel.networkStatus = status
+                    showErrorConnection()
                 }
         }
 
@@ -72,7 +75,11 @@ class RecipesFragment : Fragment() {
         readFromDatabase()
 
         binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+            if (recipesViewModel.networkStatus) {
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+            } else {
+                showErrorConnection()
+            }
         }
     }
 
@@ -159,6 +166,17 @@ class RecipesFragment : Fragment() {
         with(binding) {
             if (isShow) rvRecipes.visibility = VISIBLE
             else rvRecipes.visibility = INVISIBLE
+        }
+    }
+
+    private fun showErrorConnection() {
+        if (!recipesViewModel.networkStatus) {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_internet_connection),
+                Snackbar.LENGTH_SHORT
+            ).setBackgroundTint(R.color.purple_500)
+                .show()
         }
     }
 

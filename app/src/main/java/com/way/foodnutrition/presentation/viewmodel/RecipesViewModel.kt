@@ -13,13 +13,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
-    app: Application,
+    private val app: Application,
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
 
     private var mealType = DEFAULT_TYPE
     private var dietType = DEFAULT_DIET
 
+    var networkStatus = false
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
 
     fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) {
