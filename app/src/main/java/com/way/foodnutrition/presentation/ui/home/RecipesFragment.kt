@@ -8,8 +8,10 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -58,8 +60,13 @@ class RecipesFragment : Fragment() {
         viewModelFactory = (activity as MainActivity).viewModelFactory
         recipesViewModel = ViewModelProvider(this, viewModelFactory)[RecipesViewModel::class.java]
 
+        // Data Binding Variable
         binding.mainViewModel = mainViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        recipesViewModel.readIsBackOnline.asLiveData().observe(viewLifecycleOwner) {
+            recipesViewModel.isBackOnline = it
+        }
 
         lifecycleScope.launch {
             networkListener = (activity as MainActivity).networkListener
@@ -68,11 +75,11 @@ class RecipesFragment : Fragment() {
                     Log.e(RecipesFragment::class.simpleName, status.toString())
                     recipesViewModel.networkStatus = status
                     showErrorConnection()
+                    readFromDatabase()
                 }
         }
 
         setupRecyclerView()
-        readFromDatabase()
 
         binding.floatingActionButton.setOnClickListener {
             if (recipesViewModel.networkStatus) {
@@ -171,13 +178,20 @@ class RecipesFragment : Fragment() {
 
     private fun showErrorConnection() {
         if (!recipesViewModel.networkStatus) {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.no_internet_connection),
-                Snackbar.LENGTH_SHORT
-            ).setBackgroundTint(R.color.purple_500)
-                .show()
+            showSnackBar(getString(R.string.no_internet_connection))
+            recipesViewModel.saveIsBackOnline(true)
+        } else if (recipesViewModel.networkStatus) {
+            showSnackBar(getString(R.string.internet_connection_available))
+            recipesViewModel.saveIsBackOnline(false)
         }
+    }
+
+    private fun showSnackBar(@StringRes content: String) {
+        Snackbar.make(
+            binding.root,
+            content,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     companion object {

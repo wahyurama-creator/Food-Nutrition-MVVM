@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
-    private val app: Application,
+    app: Application,
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
 
@@ -21,13 +21,21 @@ class RecipesViewModel @Inject constructor(
     private var dietType = DEFAULT_DIET
 
     var networkStatus = false
+    var isBackOnline = false
+
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
+    val readIsBackOnline = dataStoreRepository.readBackOnline
 
     fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
         }
     }
+
+    fun saveIsBackOnline(backOnline: Boolean) =
+        viewModelScope.launch {
+            dataStoreRepository.saveBackOnline(backOnline)
+        }
 
     fun setQueriesPathApi(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()

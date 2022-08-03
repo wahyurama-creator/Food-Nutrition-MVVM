@@ -22,11 +22,12 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val selectedMealTypeId = intPreferencesKey(MEAL_TYPE_ID)
         val selectedDietType = stringPreferencesKey(DIET_TYPE)
         val selectedDietTypeId = intPreferencesKey(DIET_TYPE_ID)
+        val isBackOnline = booleanPreferencesKey(BACK_ONLINE)
     }
 
-    private val foodDataStore = context.dataStore
+    private val dataStore = context.dataStore
 
-    val readMealAndDietType: Flow<MealAndDietType> = foodDataStore.data
+    val readMealAndDietType: Flow<MealAndDietType> = dataStore.data
         .catch { exception ->
             if (exception is IOException) emit(emptyPreferences()) else throw exception
         }.map { preferences ->
@@ -47,12 +48,23 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         dietType: String,
         dietTypeId: Int
     ) {
-        foodDataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[PreferencesKey.selectedMealType] = mealType
             preferences[PreferencesKey.selectedMealTypeId] = mealTypeId
             preferences[PreferencesKey.selectedDietType] = dietType
             preferences[PreferencesKey.selectedDietTypeId] = dietTypeId
         }
+    }
+
+    suspend fun saveBackOnline(isBackOnline: Boolean) = dataStore.edit {
+        it[PreferencesKey.isBackOnline] = isBackOnline
+    }
+
+    val readBackOnline: Flow<Boolean> = dataStore.data.catch { exception ->
+        if (exception is IOException) emit(emptyPreferences()) else throw exception
+    }.map { preferences ->
+        val isBackOnline = preferences[PreferencesKey.isBackOnline] ?: false
+        isBackOnline
     }
 
     data class MealAndDietType(
@@ -68,6 +80,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         const val MEAL_TYPE_ID = "mealTypeId"
         const val DIET_TYPE = "dietType"
         const val DIET_TYPE_ID = "dietTypeId"
+        const val BACK_ONLINE = "backOnline"
         private const val DEFAULT_MEAL_MAIN_COURSE = "main course"
         private const val DEFAULT_DIET_GLUTEN_FREE = "gluten free"
         private const val DEFAULT_ID = 0
