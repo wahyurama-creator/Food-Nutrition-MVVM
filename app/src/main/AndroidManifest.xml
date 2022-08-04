@@ -18,6 +18,11 @@
         android:theme="@style/Theme.FoodNutrition"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.detail.DetailActivity"
+            android:exported="false"
+            android:label="Detail Activity"
+            android:theme="@style/DetailsActivityStyle" />
+        <activity
             android:name=".presentation.ui.MainActivity"
             android:exported="true">
             <intent-filter>
