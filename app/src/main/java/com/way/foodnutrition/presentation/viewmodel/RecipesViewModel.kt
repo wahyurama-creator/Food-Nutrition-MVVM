@@ -37,7 +37,7 @@ class RecipesViewModel @Inject constructor(
             dataStoreRepository.saveBackOnline(backOnline)
         }
 
-    fun setQueriesPathApi(): HashMap<String, String> {
+    fun setQueriesPathForRecipesApi(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
         viewModelScope.launch {
@@ -51,6 +51,16 @@ class RecipesViewModel @Inject constructor(
         queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
         queries[RecipesFragment.TYPE] = mealType
         queries[RecipesFragment.DIET] = dietType
+        queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
+        queries[RecipesFragment.FILL_INGREDIENTS] = "true"
+        return queries
+    }
+
+    fun setQueriesPathForSearchApi(searchQuery: String): HashMap<String, String> {
+        val queries: HashMap<String, String> = HashMap()
+        queries[RecipesFragment.SEARCH_QUERY] = searchQuery
+        queries[RecipesFragment.NUMBER] = DEFAULT_NUMBER
+        queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries

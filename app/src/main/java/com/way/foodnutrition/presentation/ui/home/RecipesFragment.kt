@@ -142,9 +142,40 @@ class RecipesFragment : Fragment() {
 
     private fun getRecipesApi() {
         isShownRecyclerView(false)
-        Log.d(RecipesFragment::class.simpleName, TrackLog.REQUEST_GET_API)
-        mainViewModel.getRecipes(recipesViewModel.setQueriesPathApi())
+        Log.d(RecipesFragment::class.simpleName, TrackLog.REQUEST_GET_API + " Recipes Api Response")
+        mainViewModel.getRecipes(recipesViewModel.setQueriesPathForRecipesApi())
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    showShimmer(false)
+                    isShownRecyclerView(true)
+                    response.data?.let {
+                        recipesAdapter.setData(it)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    showShimmer(false)
+                    isShownRecyclerView(true)
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    loadOfflineData()
+                }
+                is NetworkResult.Loading -> {
+                    showShimmer(true)
+                    isShownRecyclerView(false)
+                }
+            }
+        }
+    }
+
+    private fun searchRecipesApi(searchQuery: String) {
+        isShownRecyclerView(false)
+        Log.d(RecipesFragment::class.simpleName, TrackLog.REQUEST_GET_SEARCH_API + " Search Api Response")
+        mainViewModel.searchRecipes(recipesViewModel.setQueriesPathForSearchApi(searchQuery))
+        mainViewModel.searchRecipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     showShimmer(false)
@@ -207,7 +238,12 @@ class RecipesFragment : Fragment() {
                 searchView.isSubmitButtonEnabled = true
                 searchView.setOnQueryTextListener(
                     object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                        override fun onQueryTextSubmit(p0: String?): Boolean = true
+                        override fun onQueryTextSubmit(p0: String?): Boolean {
+                            if (!p0.isNullOrEmpty()) {
+                                searchRecipesApi(p0)
+                            }
+                            return true
+                        }
                         override fun onQueryTextChange(p0: String?): Boolean = true
                     }
                 )
@@ -223,11 +259,15 @@ class RecipesFragment : Fragment() {
     }
 
     companion object {
+        // Recipes query
         const val NUMBER = "number"
         const val APIKEY = "apiKey"
         const val TYPE = "type"
         const val DIET = "diet"
         const val ADD_RECIPE_INFO = "addRecipeInformation"
         const val FILL_INGREDIENTS = "fillIngredients"
+
+        // Search query
+        const val SEARCH_QUERY = "query"
     }
 }
