@@ -2,14 +2,15 @@ package com.way.foodnutrition.presentation.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -80,6 +81,7 @@ class RecipesFragment : Fragment() {
         }
 
         setupRecyclerView()
+        setOptionMenu()
 
         binding.floatingActionButton.setOnClickListener {
             if (recipesViewModel.networkStatus) {
@@ -192,6 +194,32 @@ class RecipesFragment : Fragment() {
             content,
             Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    private fun setOptionMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.recipes_menu, menu)
+
+                val search = menu.findItem(R.id.menu_search)
+                val searchView = search.actionView as androidx.appcompat.widget.SearchView
+                searchView.isSubmitButtonEnabled = true
+                searchView.setOnQueryTextListener(
+                    object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(p0: String?): Boolean = true
+                        override fun onQueryTextChange(p0: String?): Boolean = true
+                    }
+                )
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.menu_search -> true
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     companion object {
