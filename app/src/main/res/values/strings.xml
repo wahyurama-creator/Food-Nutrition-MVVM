@@ -9,11 +9,16 @@
     <string name="recipes_fragment">Recipes</string>
     <string name="favorite_fragment">Favorite</string>
     <string name="food_joke_fragment">Food Joke</string>
+    <string name="overview_fragment">Overview</string>
+    <string name="ingredients_fragment">Ingredients</string>
+    <string name="instruction_fragment">Instruction</string>
+
     <string name="ic_restaurant">Icon Restaurant</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="internet_connection_available">We\re Back Online</string>
     <string name="you_are_offline_check_your_connection">You are offline. Check your connection!</string>
     <string name="image_recipes">Image Recipes</string>
+
     <string name="icon_heart">Icon Heart</string>
     <string name="icon_clock">Icon Clock</string>
     <string name="icon_leaf">Icon Leaf</string>
@@ -45,5 +50,6 @@
     <string name="diet_type">Diet Type</string>
     <string name="apply">Apply</string>
     <string name="ic_search">Search</string>
+
 
 </resources>
