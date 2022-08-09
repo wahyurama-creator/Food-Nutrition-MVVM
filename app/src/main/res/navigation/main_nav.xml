@@ -17,6 +17,9 @@
             android:name="backFromBottomShet"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_recipesFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
     </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
@@ -37,5 +40,13 @@
             android:id="@+id/action_recipesBottomSheetFragment_to_recipesFragment"
             app:destination="@id/recipesFragment" />
     </dialog>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.way.foodnutrition.presentation.ui.detail.DetailActivity"
+        android:label="DetailActivity" >
+        <argument
+            android:name="result"
+            app:argType="com.way.foodnutrition.data.remote.model.Result" />
+    </activity>
 
 </navigation>

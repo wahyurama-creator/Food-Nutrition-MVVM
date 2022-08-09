@@ -3,6 +3,7 @@ package com.way.foodnutrition.presentation.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -10,8 +11,8 @@ import com.way.foodnutrition.R
 import com.way.foodnutrition.data.remote.model.FoodRecipe
 import com.way.foodnutrition.data.remote.model.Result
 import com.way.foodnutrition.databinding.ItemRecipesBinding
+import com.way.foodnutrition.presentation.ui.home.RecipesFragmentDirections
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class RecipesAdapter @Inject constructor() :
     RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
@@ -39,6 +40,11 @@ class RecipesAdapter @Inject constructor() :
                     tvLeaf.setTextColor(ContextCompat.getColor(root.context, R.color.red))
                     icLeaf.setColorFilter(ContextCompat.getColor(root.context, R.color.red))
                 }
+            }
+            binding.root.setOnClickListener {
+                val action =
+                    RecipesFragmentDirections.actionRecipesFragmentToDetailActivity(results)
+                binding.root.findNavController().navigate(action)
             }
         }
     }
