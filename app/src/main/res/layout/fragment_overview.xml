@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/tvTime"
-        style="@style/TextTitleBold18"
+        style="@style/TextSubTitle14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/medium_margin"
@@ -40,6 +40,7 @@
         tools:text="100" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/icon_clock"
@@ -51,23 +52,25 @@
 
     <TextView
         android:id="@+id/tvLike"
-        style="@style/TextTitleBold18"
+        style="@style/TextSubTitle14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/medium_margin"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/tvTime"
-        app:layout_constraintEnd_toStartOf="@id/tvTime"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
         tools:text="100" />
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:contentDescription="@string/icon_heart"
         android:src="@drawable/ic_heart"
-        app:layout_constraintBottom_toTopOf="@id/tvLike"
-        app:layout_constraintEnd_toEndOf="@id/tvLike"
-        app:layout_constraintStart_toStartOf="@id/tvLike"
+        app:layout_constraintBottom_toTopOf="@+id/tvTime"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
         app:tint="@color/white" />
 
     <TextView
@@ -105,7 +108,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckVegetarian"
         app:layout_constraintStart_toEndOf="@+id/icCheckVegetarian"
         app:layout_constraintTop_toTopOf="@+id/icCheckVegetarian"
-        tools:text="Vegetarian" />
+        android:text="@string/vegetarian" />
 
     <ImageView
         android:id="@+id/icCheckVegan"
@@ -127,7 +130,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckVegan"
         app:layout_constraintStart_toStartOf="@+id/tvVegetarian"
         app:layout_constraintTop_toTopOf="@+id/icCheckVegan"
-        tools:text="Vegan" />
+        android:text="@string/vegan" />
 
     <ImageView
         android:id="@+id/icCheckGlutenFree"
@@ -151,7 +154,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckGlutenFree"
         app:layout_constraintStart_toEndOf="@+id/icCheckGlutenFree"
         app:layout_constraintTop_toTopOf="@+id/icCheckGlutenFree"
-        tools:text="Gluten Free" />
+        android:text="@string/gluten_free" />
 
     <ImageView
         android:id="@+id/icCheckDairyFree"
@@ -174,7 +177,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckDairyFree"
         app:layout_constraintStart_toStartOf="@+id/tvGlutenFree"
         app:layout_constraintTop_toTopOf="@+id/icCheckDairyFree"
-        tools:text="Dairy Free" />
+        android:text="@string/dairy_free" />
 
     <ImageView
         android:id="@+id/icCheckHealthy"
@@ -198,7 +201,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckHealthy"
         app:layout_constraintStart_toEndOf="@+id/icCheckHealthy"
         app:layout_constraintTop_toTopOf="@+id/icCheckHealthy"
-        tools:text="Gluten Free" />
+        android:text="@string/healthy" />
 
     <ImageView
         android:id="@+id/icCheckCheap"
@@ -221,13 +224,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/icCheckCheap"
         app:layout_constraintStart_toStartOf="@+id/tvHealthy"
         app:layout_constraintTop_toTopOf="@+id/icCheckCheap"
-        tools:text="Cheap" />
+        android:text="@string/cheap" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/medium_margin"
-        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/large_margin"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -238,6 +241,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/TextSubTitle14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Summary"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

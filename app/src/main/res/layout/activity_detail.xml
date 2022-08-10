@@ -19,32 +19,19 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             style="@style/CustomTabLayout"
-            app:tabTextAppearance="@style/CustomTabTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="fixed">
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/CustomTabTextStyle" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Overview" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab2" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab3" />
-        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
