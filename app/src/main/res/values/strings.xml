@@ -55,5 +55,7 @@
     <string name="dairy_free">Dairy Free</string>
     <string name="healthy">Healthy</string>
     <string name="summary">Summary</string>
+    <string name="image_view_ingredients">Image View Ingredients</string>
+    <string name="ingredients_amount">%d %s</string>
 
 </resources>
