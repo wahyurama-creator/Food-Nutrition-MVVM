@@ -54,5 +54,6 @@
     <string name="apply">Apply</string>
     <string name="dairy_free">Dairy Free</string>
     <string name="healthy">Healthy</string>
+    <string name="summary">Summary</string>
 
 </resources>

@@ -11,6 +11,7 @@ import com.way.foodnutrition.R
 import com.way.foodnutrition.data.remote.model.Result
 import com.way.foodnutrition.databinding.FragmentOverviewBinding
 import com.way.foodnutrition.presentation.ui.detail.DetailActivity.Companion.RECIPES_BUNDLE
+import org.jsoup.Jsoup
 
 class OverviewFragment : Fragment() {
 
@@ -37,7 +38,7 @@ class OverviewFragment : Fragment() {
             tvTitleRecipes.text = data.title
             tvLike.text = data.aggregateLikes.toString()
             tvTime.text = data.readyInMinutes.toString()
-            tvSummary.text = data.summary
+            tvSummary.text = Jsoup.parse(data.summary).text()
             setColorOnRecipesType(data)
         }
     }

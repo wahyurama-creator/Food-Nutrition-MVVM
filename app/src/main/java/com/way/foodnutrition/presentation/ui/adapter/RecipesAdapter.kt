@@ -12,6 +12,7 @@ import com.way.foodnutrition.data.remote.model.FoodRecipe
 import com.way.foodnutrition.data.remote.model.Result
 import com.way.foodnutrition.databinding.ItemRecipesBinding
 import com.way.foodnutrition.presentation.ui.home.RecipesFragmentDirections
+import org.jsoup.Jsoup
 import javax.inject.Inject
 
 class RecipesAdapter @Inject constructor() :
@@ -28,7 +29,7 @@ class RecipesAdapter @Inject constructor() :
                 error(R.drawable.ic_error_placeholder)
             }
             binding.tvTitleRecipes.text = results.title
-            binding.tvDescRecipes.text = results.summary
+            binding.tvDescRecipes.text = Jsoup.parse(results.summary).text()
             binding.tvHeart.text = results.aggregateLikes.toString()
             binding.tvClock.text = results.readyInMinutes.toString()
             binding.apply {
