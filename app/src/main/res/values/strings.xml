@@ -4,6 +4,8 @@
     <string name="timeout">Error Timeout</string>
     <string name="api_key_limited">Error API Key Limited</string>
     <string name="recipes_not_found">Recipes Not Found</string>
+    <string name="recipes_saved">Recipes saved</string>
+    <string name="recipes_removed">Recipes removed from favorite</string>
 
     <!-- menu item & fragments -->
     <string name="recipes_fragment">Recipes</string>
@@ -58,5 +60,6 @@
     <string name="image_view_ingredients">Image View Ingredients</string>
     <string name="ingredients_amount">%.2f %s</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="favorite_is_empty">Favorite is Empty</string>
 
 </resources>

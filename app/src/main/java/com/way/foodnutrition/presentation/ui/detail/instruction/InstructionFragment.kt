@@ -1,12 +1,11 @@
 package com.way.foodnutrition.presentation.ui.detail.instruction
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import com.way.foodnutrition.R
+import androidx.fragment.app.Fragment
 import com.way.foodnutrition.data.remote.model.Result
 import com.way.foodnutrition.databinding.FragmentInstructionBinding
 import com.way.foodnutrition.presentation.ui.detail.DetailActivity
@@ -32,9 +31,26 @@ class InstructionFragment : Fragment() {
 
     private fun setupWebView(url: String) {
         binding.webViewInstruction.apply {
-            webViewClient = object : WebViewClient() {}
+            webViewClient = WebViewClient()
             loadUrl(url)
             settings.javaScriptEnabled = true
+            isVerticalScrollBarEnabled = true
+            isHorizontalScrollBarEnabled = true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.webViewInstruction.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.webViewInstruction.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.webViewInstruction.destroy()
     }
 }

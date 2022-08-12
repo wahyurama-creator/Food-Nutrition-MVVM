@@ -21,17 +21,17 @@ class DetailViewModel @Inject constructor(
     val readFavoriteRecipes: LiveData<List<FavoriteEntity>> =
         repository.localDataSource.readFavoriteRecipes().asLiveData()
 
-    private fun insertFavoriteRecipes(favoriteEntity: FavoriteEntity) =
+    fun insertFavoriteRecipes(favoriteEntity: FavoriteEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.localDataSource.insertFavoriteRecipes(favoriteEntity)
         }
 
-    private fun deleteFavoriteRecipes(favoriteEntity: FavoriteEntity) =
+    fun deleteFavoriteRecipes(favoriteEntity: FavoriteEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.localDataSource.deleteFavoriteRecipes(favoriteEntity)
         }
 
-    private fun deleteAllFavoriteRecipes() =
+    fun deleteAllFavoriteRecipes() =
         viewModelScope.launch(Dispatchers.IO) {
             repository.localDataSource.deleteAllFavoriteRecipes()
         }
