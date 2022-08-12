@@ -2,6 +2,7 @@ package com.way.foodnutrition.presentation.ui.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -68,6 +69,11 @@ class DetailActivity : AppCompatActivity() {
         ) { tab, position ->
             tab.text = titles[position]
         }.attach()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

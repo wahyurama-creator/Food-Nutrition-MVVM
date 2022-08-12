@@ -57,5 +57,6 @@
     <string name="summary">Summary</string>
     <string name="image_view_ingredients">Image View Ingredients</string>
     <string name="ingredients_amount">%.2f %s</string>
+    <string name="menu_favorite">Favorite</string>
 
 </resources>
