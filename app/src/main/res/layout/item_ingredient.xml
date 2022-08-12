@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:padding="4dp">
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="4dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:layout_marginHorizontal="@dimen/medium_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/medium_margin"
-        app:cardElevation="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/lightMediumGray"
+        app:cardElevation="0dp"
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,11 +29,12 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ivIngredients"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginVertical="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/medium_margin"
                 android:contentDescription="@string/image_view_ingredients"
-                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,14 +46,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/medium_margin"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivIngredients"
+                app:layout_constraintTop_toTopOf="@+id/ivIngredients"
                 tools:text="Ingredients name" />
 
             <TextView
@@ -75,13 +79,16 @@
             <TextView
                 android:id="@+id/tvIngredientsOriginal"
                 style="@style/TextSubTitle14"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="@dimen/medium_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvAmountAndUnit"
                 app:layout_constraintTop_toBottomOf="@+id/tvConsistencyIngredients"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="Original" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

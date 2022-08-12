@@ -21,6 +21,7 @@ android {
 
         buildConfigField "String", "apiKey", apiKey
         buildConfigField "String", "baseUrl", baseUrl
+        buildConfigField "String", "baseImageUrl", baseImageUrl
     }
 
     buildTypes {

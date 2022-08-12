@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.ActivityMainBinding
+import com.way.foodnutrition.presentation.ui.adapter.IngredientsAdapter
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
 import com.way.foodnutrition.presentation.viewmodel.MainViewModel
 import com.way.foodnutrition.presentation.viewmodel.ViewModelFactory
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var recipesAdapter: RecipesAdapter
+    @Inject
+    lateinit var ingredientsAdapter: IngredientsAdapter
     @Inject
     lateinit var networkListener: NetworkListener
 

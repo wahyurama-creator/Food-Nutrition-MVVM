@@ -10,15 +10,22 @@ import androidx.navigation.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.ActivityDetailBinding
+import com.way.foodnutrition.presentation.ui.adapter.IngredientsAdapter
 import com.way.foodnutrition.presentation.ui.adapter.PagerAdapter
 import com.way.foodnutrition.presentation.ui.detail.ingredient.IngredientFragment
 import com.way.foodnutrition.presentation.ui.detail.instruction.InstructionFragment
 import com.way.foodnutrition.presentation.ui.detail.overview.OverviewFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private val args by navArgs<DetailActivityArgs>()
+
+    @Inject
+    lateinit var ingredientsAdapter: IngredientsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
