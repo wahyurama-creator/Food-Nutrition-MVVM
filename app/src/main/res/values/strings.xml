@@ -61,5 +61,6 @@
     <string name="ingredients_amount">%.2f %s</string>
     <string name="menu_favorite">Favorite</string>
     <string name="favorite_is_empty">Favorite is Empty</string>
+    <string name="delete_favorite_menu">Delete Favorite Menu</string>
 
 </resources>

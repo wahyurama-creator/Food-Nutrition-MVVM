@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var ingredientsAdapter: IngredientsAdapter
 
     @Inject
-    lateinit var favoriteAdapter: FavoriteAdapter
-
-    @Inject
     lateinit var networkListener: NetworkListener
 
     @Inject

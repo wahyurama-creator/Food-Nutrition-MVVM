@@ -20,7 +20,7 @@ class FavoriteRecipesFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteRecipesBinding
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var factory: ViewModelFactory
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private val favoriteAdapter: FavoriteAdapter by lazy { FavoriteAdapter(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +35,6 @@ class FavoriteRecipesFragment : Fragment() {
 
         factory = (activity as MainActivity).viewModelFactory
         detailViewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
-        favoriteAdapter = (activity as MainActivity).favoriteAdapter
 
         setupRecyclerView()
 

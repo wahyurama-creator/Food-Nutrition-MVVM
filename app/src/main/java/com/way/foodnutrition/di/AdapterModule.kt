@@ -1,7 +1,6 @@
 package com.way.foodnutrition.di
 
 import android.content.Context
-import com.way.foodnutrition.presentation.ui.adapter.FavoriteAdapter
 import com.way.foodnutrition.presentation.ui.adapter.IngredientsAdapter
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
 import dagger.Module
@@ -24,8 +23,4 @@ object AdapterModule {
     fun provideIngredientsAdapter(
         @ApplicationContext context: Context
     ): IngredientsAdapter = IngredientsAdapter(context)
-
-    @Provides
-    @Singleton
-    fun provideFavoriteAdapter(): FavoriteAdapter = FavoriteAdapter()
 }

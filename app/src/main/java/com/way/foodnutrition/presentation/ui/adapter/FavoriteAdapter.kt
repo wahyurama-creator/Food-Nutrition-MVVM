@@ -1,8 +1,8 @@
 package com.way.foodnutrition.presentation.ui.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,10 +12,10 @@ import com.way.foodnutrition.data.local.model.FavoriteEntity
 import com.way.foodnutrition.databinding.ItemRecipesBinding
 import com.way.foodnutrition.presentation.ui.favorite.FavoriteRecipesFragmentDirections
 import org.jsoup.Jsoup
-import javax.inject.Inject
 
-class FavoriteAdapter @Inject constructor() :
-    RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+class FavoriteAdapter(
+    private val requireActivity: FragmentActivity
+) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>(), ActionMode.Callback {
 
     private var oldFavorite = emptyList<FavoriteEntity>()
 
@@ -41,12 +41,19 @@ class FavoriteAdapter @Inject constructor() :
                     icLeaf.setColorFilter(ContextCompat.getColor(root.context, R.color.red))
                 }
             }
-            binding.root.setOnClickListener {
-                val action =
-                    FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailActivity(
-                        favoriteEntity.result
-                    )
-                binding.root.findNavController().navigate(action)
+
+            binding.root.apply {
+                setOnClickListener {
+                    val action =
+                        FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailActivity(
+                            favoriteEntity.result
+                        )
+                    binding.root.findNavController().navigate(action)
+                }
+                setOnLongClickListener {
+                    requireActivity.startActionMode(this@FavoriteAdapter)
+                    true
+                }
             }
         }
     }
@@ -72,5 +79,14 @@ class FavoriteAdapter @Inject constructor() :
         oldFavorite = favoriteEntity
         diffResults.dispatchUpdatesTo(this)
     }
+
+    override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        actionMode?.menuInflater?.inflate(R.menu.favorite_contextual_menu, menu)
+        return true
+    }
+
+    override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean = true
+    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean = true
+    override fun onDestroyActionMode(p0: ActionMode?) {}
 
 }
