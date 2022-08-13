@@ -1,6 +1,7 @@
 package com.way.foodnutrition.presentation.ui.adapter
 
 import android.view.*
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
@@ -82,11 +83,15 @@ class FavoriteAdapter(
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorite_contextual_menu, menu)
+        changeStatusBarColor(R.color.darker)
         return true
     }
 
     override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean = true
     override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean = true
-    override fun onDestroyActionMode(p0: ActionMode?) {}
+    override fun onDestroyActionMode(p0: ActionMode?) = changeStatusBarColor(R.color.purple_500)
 
+    private fun changeStatusBarColor(@ColorInt color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
 }
