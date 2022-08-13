@@ -3,12 +3,14 @@ package com.way.foodnutrition.presentation.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.way.foodnutrition.R
 import com.way.foodnutrition.data.local.model.FavoriteEntity
 import com.way.foodnutrition.databinding.ItemRecipesBinding
+import com.way.foodnutrition.presentation.ui.favorite.FavoriteRecipesFragmentDirections
 import org.jsoup.Jsoup
 import javax.inject.Inject
 
@@ -38,6 +40,13 @@ class FavoriteAdapter @Inject constructor() :
                     tvLeaf.setTextColor(ContextCompat.getColor(root.context, R.color.red))
                     icLeaf.setColorFilter(ContextCompat.getColor(root.context, R.color.red))
                 }
+            }
+            binding.root.setOnClickListener {
+                val action =
+                    FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailActivity(
+                        favoriteEntity.result
+                    )
+                binding.root.findNavController().navigate(action)
             }
         }
     }
