@@ -62,5 +62,7 @@
     <string name="menu_favorite">Favorite</string>
     <string name="favorite_is_empty">Favorite is Empty</string>
     <string name="delete_favorite_menu">Delete Favorite Menu</string>
+    <string name="delete_all">Delete All</string>
+    <string name="all_recipes_removed">All recipes removed</string>
 
 </resources>
