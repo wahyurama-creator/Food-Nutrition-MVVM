@@ -8,24 +8,32 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import com.way.foodnutrition.R
 import com.way.foodnutrition.data.local.model.FavoriteEntity
 import com.way.foodnutrition.databinding.ItemRecipesBinding
 import com.way.foodnutrition.presentation.ui.favorite.FavoriteRecipesFragmentDirections
+import com.way.foodnutrition.presentation.viewmodel.DetailViewModel
 import org.jsoup.Jsoup
 
 class FavoriteAdapter(
-    private val requireActivity: FragmentActivity
+    private val requireActivity: FragmentActivity,
+    private val detailViewModel: DetailViewModel
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>(), ActionMode.Callback {
 
     private var oldFavorite = emptyList<FavoriteEntity>()
     private var multiSelection = false
     private var selectedRecipes = arrayListOf<FavoriteEntity>()
     private var favBinding = arrayListOf<ItemRecipesBinding>()
+    private lateinit var mActionMode: ActionMode
+
+    private lateinit var bindingGlobal: ItemRecipesBinding
 
     inner class FavoriteViewHolder(private val binding: ItemRecipesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favoriteEntity: FavoriteEntity) {
+            // Add binding
+            bindingGlobal = binding
             favBinding.add(binding)
 
             binding.ivRecipes.load(favoriteEntity.result.image)
@@ -97,9 +105,11 @@ class FavoriteAdapter(
         if (selectedRecipes.contains(currentRecipes)) {
             selectedRecipes.remove(currentRecipes)
             changeItemStyle(binding, R.color.white, R.color.lightMediumGray)
+            applyActionModeTitle()
         } else {
             selectedRecipes.add(currentRecipes)
             changeItemStyle(binding, R.color.purple_500, R.color.purple_700)
+            applyActionModeTitle()
         }
     }
 
@@ -118,14 +128,45 @@ class FavoriteAdapter(
             ContextCompat.getColor(requireActivity, strokeColor)
     }
 
+    private fun applyActionModeTitle() {
+        when (selectedRecipes.size) {
+            0 -> {
+                mActionMode.finish()
+            }
+            1 -> {
+                mActionMode.title = "${selectedRecipes.size} item selected"
+            }
+            else -> {
+                mActionMode.title = "${selectedRecipes.size} items selected"
+            }
+        }
+    }
+
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorite_contextual_menu, menu)
+        if (actionMode != null) {
+            mActionMode = actionMode
+        }
         changeStatusBarColor(R.color.darker)
         return true
     }
 
     override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean = true
-    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean = true
+    override fun onActionItemClicked(actionMode: ActionMode?, menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == R.id.deleteFavoriteRecipesMenu) {
+            selectedRecipes.forEach {
+                detailViewModel.deleteFavoriteRecipes(it)
+            }
+
+            showDeleteItemWithSnackBar("${selectedRecipes.size} recipes removed")
+
+            multiSelection = false
+            selectedRecipes.clear()
+            actionMode?.finish()
+        }
+        return true
+    }
+
     override fun onDestroyActionMode(p0: ActionMode?) {
         favBinding.forEach { binding ->
             changeItemStyle(binding, R.color.white, R.color.lightMediumGray)
@@ -137,6 +178,17 @@ class FavoriteAdapter(
 
     private fun changeStatusBarColor(@ColorInt color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
+
+    private fun showDeleteItemWithSnackBar(message: String) {
+        Snackbar.make(bindingGlobal.root, message, Snackbar.LENGTH_SHORT).setAction("Okay") {}
+            .show()
+    }
+
+    fun clearContextualActionMode() {
+        if (this::mActionMode.isInitialized) {
+            mActionMode.finish()
+        }
     }
 }
 

@@ -20,7 +20,12 @@ class FavoriteRecipesFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteRecipesBinding
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var factory: ViewModelFactory
-    private val favoriteAdapter: FavoriteAdapter by lazy { FavoriteAdapter(requireActivity()) }
+    private val favoriteAdapter: FavoriteAdapter by lazy {
+        FavoriteAdapter(
+            requireActivity(),
+            detailViewModel
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +51,11 @@ class FavoriteRecipesFragment : Fragment() {
                 favoriteAdapter.setData(favoriteEntity)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        favoriteAdapter.clearContextualActionMode()
     }
 
     private fun setupRecyclerView() {
