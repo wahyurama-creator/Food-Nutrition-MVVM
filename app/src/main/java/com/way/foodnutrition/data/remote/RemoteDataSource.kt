@@ -1,5 +1,6 @@
 package com.way.foodnutrition.data.remote
 
+import com.way.foodnutrition.data.remote.model.FoodJoke
 import com.way.foodnutrition.data.remote.model.FoodRecipe
 import com.way.foodnutrition.data.remote.network.RecipesApi
 import retrofit2.Response
@@ -15,4 +16,5 @@ class RemoteDataSource @Inject constructor(
     suspend fun searchRecipes(searchQuery: Map<String, String>): Response<FoodRecipe> =
         recipesApi.searchRecipes(searchQuery)
 
+    suspend fun getFoodJokes(): Response<FoodJoke> = recipesApi.getFoodJoke()
 }
