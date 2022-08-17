@@ -1,6 +1,7 @@
 package com.way.foodnutrition.data.local
 
 import com.way.foodnutrition.data.local.model.FavoriteEntity
+import com.way.foodnutrition.data.local.model.FoodJokeEntity
 import com.way.foodnutrition.data.local.model.RecipesEntity
 import com.way.foodnutrition.data.local.room.RecipesDao
 import kotlinx.coroutines.flow.Flow
@@ -23,4 +24,9 @@ class LocalDataSource @Inject constructor(
         recipesDao.deleteFavoriteRecipes(favoriteEntity)
 
     suspend fun deleteAllFavoriteRecipes() = recipesDao.deleteAllFavoriteRecipes()
+
+    suspend fun insertFoodJokes(foodJokeEntity: FoodJokeEntity) =
+        recipesDao.insertFoodJokes(foodJokeEntity)
+
+    fun readFoodJokes(): Flow<List<FoodJokeEntity>> = recipesDao.readFoodJokes()
 }
