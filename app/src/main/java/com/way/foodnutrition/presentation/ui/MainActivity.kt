@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.ActivityMainBinding
-import com.way.foodnutrition.presentation.ui.adapter.FavoriteAdapter
 import com.way.foodnutrition.presentation.ui.adapter.IngredientsAdapter
 import com.way.foodnutrition.presentation.ui.adapter.RecipesAdapter
 import com.way.foodnutrition.presentation.viewmodel.MainViewModel
@@ -36,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_FoodNutrition)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

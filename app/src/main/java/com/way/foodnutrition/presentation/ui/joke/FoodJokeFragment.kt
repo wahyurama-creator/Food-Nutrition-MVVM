@@ -85,7 +85,7 @@ class FoodJokeFragment : Fragment() {
     private fun loadDataFromDatabase() = lifecycleScope.launch {
         mainViewModel.readFoodJoke.observe(viewLifecycleOwner) { database ->
             if (!database.isNullOrEmpty()) {
-                val randomPosition = Random(database.size).toString().toInt()
+                val randomPosition = Random.nextInt(database.size)
                 Log.e(FoodJokeFragment::class.simpleName, randomPosition.toString())
                 binding.tvJoke.text = database[randomPosition].foodJoke.text
             }

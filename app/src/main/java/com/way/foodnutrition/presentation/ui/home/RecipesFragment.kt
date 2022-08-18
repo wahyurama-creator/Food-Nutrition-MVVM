@@ -17,7 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.way.foodnutrition.R
 import com.way.foodnutrition.databinding.FragmentRecipesBinding
 import com.way.foodnutrition.presentation.ui.MainActivity
@@ -220,11 +219,7 @@ class RecipesFragment : Fragment() {
     }
 
     private fun showSnackBar(@StringRes content: String) {
-        Snackbar.make(
-            binding.root,
-            content,
-            Snackbar.LENGTH_SHORT
-        ).show()
+        Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
     }
 
     private fun setOptionMenu() {
