@@ -64,6 +64,7 @@
     <string name="delete_favorite_menu">Delete Favorite Menu</string>
     <string name="delete_all">Delete All</string>
     <string name="all_recipes_removed">All recipes removed</string>
-    <string name="something_wrong">Something wrong</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="share">Share</string>
 
 </resources>
