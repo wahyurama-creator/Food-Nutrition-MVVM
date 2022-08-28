@@ -33,7 +33,7 @@ class RecipesViewModel @Inject constructor(
         }
     }
 
-    fun saveIsBackOnline(backOnline: Boolean) =
+    private fun saveIsBackOnline(backOnline: Boolean) =
         viewModelScope.launch {
             dataStoreRepository.saveBackOnline(backOnline)
         }
