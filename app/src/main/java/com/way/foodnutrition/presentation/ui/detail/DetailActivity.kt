@@ -79,6 +79,7 @@ class DetailActivity : AppCompatActivity() {
             lifecycle
         )
         binding.viewPagerDetail.adapter = pagerAdapter
+        binding.viewPagerDetail.isUserInputEnabled = false
         TabLayoutMediator(
             binding.tabs,
             binding.viewPagerDetail
