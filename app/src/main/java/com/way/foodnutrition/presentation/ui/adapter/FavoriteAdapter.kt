@@ -52,6 +52,8 @@ class FavoriteAdapter(
                 }
             }
 
+            saveItemStateOnScroll(binding, favoriteEntity)
+
             binding.root.apply {
                 setOnClickListener {
                     if (multiSelection) {
@@ -72,7 +74,7 @@ class FavoriteAdapter(
                         true
                     } else {
                         checkSelection(binding, favoriteEntity)
-                        false
+                        true
                     }
                 }
             }
@@ -99,6 +101,14 @@ class FavoriteAdapter(
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         oldFavorite = favoriteEntity
         diffResults.dispatchUpdatesTo(this)
+    }
+
+    private fun saveItemStateOnScroll(binding: ItemRecipesBinding, currentRecipes: FavoriteEntity) {
+        if (selectedRecipes.contains(currentRecipes)) {
+            changeItemStyle(binding, R.color.purple_500, R.color.purple_700)
+        } else {
+            changeItemStyle(binding, R.color.white, R.color.lightMediumGray)
+        }
     }
 
     private fun checkSelection(binding: ItemRecipesBinding, currentRecipes: FavoriteEntity) {
@@ -132,6 +142,7 @@ class FavoriteAdapter(
         when (selectedRecipes.size) {
             0 -> {
                 mActionMode.finish()
+                multiSelection = false
             }
             1 -> {
                 mActionMode.title = "${selectedRecipes.size} item selected"
