@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.way.foodnutrition.BuildConfig
 import com.way.foodnutrition.data.DataStoreRepository
+import com.way.foodnutrition.data.DataStoreRepository.MealAndDietType
 import com.way.foodnutrition.presentation.ui.home.RecipesFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,7 @@ class RecipesViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(app) {
 
-    private var mealType = DEFAULT_TYPE
-    private var dietType = DEFAULT_DIET
+    private lateinit var mealAndDiet: MealAndDietType
 
     var networkStatus = false
     var isBackOnline = false
@@ -27,10 +27,27 @@ class RecipesViewModel @Inject constructor(
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
     val readIsBackOnline = dataStoreRepository.readBackOnline
 
-    fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) {
+    fun saveMealAndDietType() =
         viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
+            if (::mealAndDiet.isInitialized) {
+                dataStoreRepository.saveMealAndDietType(
+                    mealAndDiet.selectedMealType,
+                    mealAndDiet.selectedMealTypeId,
+                    mealAndDiet.selectedDietType,
+                    mealAndDiet.selectedDietTypeId
+                )
+            }
         }
+
+    fun saveMealAndDietTypeTemp(
+        mealType: String,
+        mealTypeId: Int,
+        dietType: String,
+        dietTypeId: Int
+    ) {
+        mealAndDiet = MealAndDietType(
+            mealType, mealTypeId, dietType, dietTypeId
+        )
     }
 
     private fun saveIsBackOnline(backOnline: Boolean) =
@@ -41,17 +58,15 @@ class RecipesViewModel @Inject constructor(
     fun setQueriesPathForRecipesApi(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
-        viewModelScope.launch {
-            readMealAndDietType.collect {
-                mealType = it.selectedMealType
-                dietType = it.selectedDietType
-            }
-        }
-
         queries[RecipesFragment.NUMBER] = DEFAULT_NUMBER
         queries[RecipesFragment.APIKEY] = BuildConfig.apiKey
-        queries[RecipesFragment.TYPE] = mealType
-        queries[RecipesFragment.DIET] = dietType
+        if (::mealAndDiet.isInitialized) {
+            queries[RecipesFragment.TYPE] = mealAndDiet.selectedMealType
+            queries[RecipesFragment.DIET] = mealAndDiet.selectedDietType
+        } else {
+            queries[RecipesFragment.TYPE] = DEFAULT_TYPE
+            queries[RecipesFragment.DIET] = DEFAULT_DIET
+        }
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries

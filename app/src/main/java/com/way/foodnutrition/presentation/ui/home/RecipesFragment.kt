@@ -151,6 +151,7 @@ class RecipesFragment : Fragment() {
                     response.data?.let {
                         recipesAdapter.setData(it)
                     }
+                    recipesViewModel.saveMealAndDietType()
                 }
                 is NetworkResult.Error -> {
                     showShimmer(false)
