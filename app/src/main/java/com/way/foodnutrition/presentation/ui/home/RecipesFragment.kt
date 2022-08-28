@@ -68,13 +68,13 @@ class RecipesFragment : Fragment() {
             recipesViewModel.isBackOnline = it
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             networkListener = (activity as MainActivity).networkListener
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
                     Log.e(RecipesFragment::class.simpleName, status.toString())
                     recipesViewModel.networkStatus = status
-                    showErrorConnection()
+                    recipesViewModel.showNetworkStatus()
                     readFromDatabase()
                 }
         }
@@ -86,7 +86,7 @@ class RecipesFragment : Fragment() {
             if (recipesViewModel.networkStatus) {
                 findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
             } else {
-                showErrorConnection()
+                recipesViewModel.showNetworkStatus()
             }
         }
     }
@@ -205,16 +205,6 @@ class RecipesFragment : Fragment() {
         with(binding) {
             if (isShow) rvRecipes.visibility = VISIBLE
             else rvRecipes.visibility = INVISIBLE
-        }
-    }
-
-    private fun showErrorConnection() {
-        if (!recipesViewModel.networkStatus) {
-            showSnackBar(getString(R.string.no_internet_connection))
-            recipesViewModel.saveIsBackOnline(true)
-        } else if (recipesViewModel.networkStatus) {
-            showSnackBar(getString(R.string.internet_connection_available))
-            recipesViewModel.saveIsBackOnline(false)
         }
     }
 

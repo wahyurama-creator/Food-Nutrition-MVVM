@@ -1,6 +1,7 @@
 package com.way.foodnutrition.presentation.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.way.foodnutrition.BuildConfig
@@ -64,6 +65,18 @@ class RecipesViewModel @Inject constructor(
         queries[RecipesFragment.ADD_RECIPE_INFO] = "true"
         queries[RecipesFragment.FILL_INGREDIENTS] = "true"
         return queries
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
+            saveIsBackOnline(true)
+        } else if (networkStatus) {
+            if (isBackOnline) {
+                Toast.makeText(getApplication(), "We're back online.", Toast.LENGTH_SHORT).show()
+                saveIsBackOnline(false)
+            }
+        }
     }
 
     companion object {
